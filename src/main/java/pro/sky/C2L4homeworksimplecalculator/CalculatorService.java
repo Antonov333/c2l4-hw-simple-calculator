@@ -15,4 +15,9 @@ public class CalculatorService {
                 "Use addresses as follows to perform math ops";
     }
 
+    public String plus(int num1, int num2) {
+        return String.valueOf(num1) + " + " + String.valueOf(num2) + " = " + String.valueOf(num1 + num2);
+
+    }
+
 }
