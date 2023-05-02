@@ -17,7 +17,30 @@ public class CalculatorService {
 
     public String plus(int num1, int num2) {
         return String.valueOf(num1) + " + " + String.valueOf(num2) + " = " + String.valueOf(num1 + num2);
+    }
 
+    public String plus(int num1) {
+        return "second parameter of addition operation missing ";
+    }
+
+    public String plus() {
+        return "parameters of addition operation missing ";
+    }
+
+    public String divide(int num1, int num2) {
+        if (num2 == 0) {
+            return "division by zero is invalid";
+        } else {
+            return String.valueOf(num1) + " / " + String.valueOf(num2) + " = " + String.valueOf(num1 / num2);
+        }
+    }
+
+    public String minus(int num1, int num2) {
+        return String.valueOf(num1) + " - " + String.valueOf(num2) + " = " + String.valueOf(num1 - num2);
+    }
+
+    public String multiply(int num1, int num2) {
+        return String.valueOf(num1) + " * " + String.valueOf(num2) + " = " + String.valueOf(num1 * num2);
     }
 
 }
