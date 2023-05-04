@@ -15,17 +15,14 @@ public class CalculatorService {
                 "Use addresses as follows to perform math ops";
     }
 
-    public String plus(int num1, int num2) {
+    public String plus(Integer num1, Integer num2) {
+        if (num1 == null || num2 == null) {
+            return "num1 and/or num2 is missing";
+        }
+
         return String.valueOf(num1) + " + " + String.valueOf(num2) + " = " + String.valueOf(num1 + num2);
     }
 
-    public String plus(int num1) {
-        return "second parameter of addition operation missing ";
-    }
-
-    public String plus() {
-        return "parameters of addition operation missing ";
-    }
 
     public String divide(int num1, int num2) {
         if (num2 == 0) {
