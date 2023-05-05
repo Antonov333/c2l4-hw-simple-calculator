@@ -7,37 +7,88 @@ public class CalculatorService {
 
     public String hint() {
         return
-                "Hi! <br><br>Use \\calculator address to reach simple calculator";
+                "<b>Hi! <br><br>Welcome to simple <a href=\"http://localhost:8080/calculator/\">Calculator</a>!";
     }
 
     public String welcome() {
-        return "Welcome to simple calculator!<br><br>" +
-                "Use addresses as follows to perform math ops";
+        return "<b>Welcome to simple calculator!</b><br><br>" +
+                "<a href=\"http://localhost:8080/calculator/plus/?num1=1&num2=1\"> Plus </a> | " +
+                "<a href=\"http://localhost:8080/calculator/minus/?num1=1&num2=1\"> Minus </a> | " +
+                "<a href=\"http://localhost:8080/calculator/multiply/?num1=1&num2=1\"> Multiply </a> | " +
+                "<a href=\"http://localhost:8080/calculator/divide/?num1=1&num2=1\"> Divide </a>";
     }
 
     public String plus(Integer num1, Integer num2) {
-        if (num1 == null || num2 == null) {
-            return "num1 and/or num2 is missing";
+        int code = checkParamsCode(num1, num2);
+        String result = "<b>Plus</b><br><br>" + checkParamsString(code);
+        if (code == 0) {
+            result = result.concat(
+                    num1 + " + " + num2 + " = " + (num1 + num2));
         }
-
-        return String.valueOf(num1) + " + " + String.valueOf(num2) + " = " + String.valueOf(num1 + num2);
+        return result;
     }
 
 
-    public String divide(int num1, int num2) {
-        if (num2 == 0) {
-            return "division by zero is invalid";
-        } else {
-            return String.valueOf(num1) + " / " + String.valueOf(num2) + " = " + String.valueOf(num1 / num2);
+    public String divide(Integer num1, Integer num2) {
+        int code = checkParamsCode(num1, num2);
+        String result = "<b>Division</b><br><br>" + checkParamsString(code);
+        if (code == 0 && num2.intValue() == 0) {
+            code = code + 1000;
+            result = result.concat(" -- ERROR: division by zero");
         }
+        if (code == 0) {
+            result = result.concat(num1 + " / " + num2 + " = "
+                    + num1 / num2);
+        }
+        return result;
     }
 
-    public String minus(int num1, int num2) {
-        return String.valueOf(num1) + " - " + String.valueOf(num2) + " = " + String.valueOf(num1 - num2);
+    public String minus(Integer num1, Integer num2) {
+        int code = checkParamsCode(num1, num2);
+        String result = "<b>Minus</b><br><br>" + checkParamsString(code);
+        if (code == 0) {
+            result = result.concat(num1 + " - " + num2 + " = " + (num1 - num2));
+        }
+        return result;
     }
 
-    public String multiply(int num1, int num2) {
-        return String.valueOf(num1) + " * " + String.valueOf(num2) + " = " + String.valueOf(num1 * num2);
+    public String multiply(Integer num1, Integer num2) {
+        int code = checkParamsCode(num1, num2);
+        String result = "<b>Multiply</b><br><br>" + checkParamsString(code);
+        if (code == 0) {
+            result = result.concat(
+                    num1 + " * " + num2 + " = " + num1 * num2);
+        }
+        return result;
+    }
+
+    private int checkParamsCode(Object p1, Object p2) {
+        int c = 0;
+        if (p1 == null) {
+            c = 10;
+        }
+        if (p2 == null) {
+            c += 100;
+        }
+        return c;
+        // 0 - both params are OK
+        //10 - first param is missing
+        //100 - second param is missing
+        //110 - both params are missing
+    }
+
+    private String checkParamsString(int code) {
+        switch (code) {
+            case 0:
+                return "";
+            case 10:
+                return "ERROR: first parameter is missing";
+            case 100:
+                return "ERROR: second parameter is missing";
+            case 110:
+                return "ERROR: first and second parameters are missing";
+        }
+        return "checkParamsString went wrong";
     }
 
 }
